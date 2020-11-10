@@ -1,13 +1,15 @@
-﻿namespace Ecommerce.Domain.StoreContext.Entities
+﻿using FluentValidator;
+
+namespace Ecommerce.Domain.StoreContext.Entities
 {
-    public class Product
+    public class Product : Notifiable
     {
         public Product(
             string title, 
             string description, 
             string image, 
             decimal price, 
-            string quantityOnHand)
+            int quantityOnHand)
         {
             Title = title;
             Description = description;
@@ -20,7 +22,7 @@
         public string Description { get; private set; }
         public string Image { get; private set; }
         public decimal Price { get; private set; }
-        public string QuantityOnHand { get; private set; }
+        public int QuantityOnHand { get; private set; }
 
         public override string ToString()
         {
