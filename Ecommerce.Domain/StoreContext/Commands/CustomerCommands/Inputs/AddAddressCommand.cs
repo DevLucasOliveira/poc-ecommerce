@@ -1,9 +1,12 @@
 ﻿using Ecommerce.Domain.StoreContext.Enums;
+using Ecommerce.Shared.Commands;
+using FluentValidator;
+using FluentValidator.Validation;
 using System;
 
 namespace Ecommerce.Domain.StoreContext.Commands.CustomerCommands.Inputs
 {
-    public class AddAddressCommand
+    public class AddAddressCommand : Notifiable, ICommand
     {
         public Guid Id { get; set; }
         public string Street { get; set; }
@@ -15,5 +18,14 @@ namespace Ecommerce.Domain.StoreContext.Commands.CustomerCommands.Inputs
         public string Country { get; set; }
         public string ZipCode { get; set; }
         public EAddressType Type { get; set; }
+
+        public void Valid()
+        {
+            AddNotifications(
+                new ValidationContract()
+                .Requires()
+                .HasMinLen(Street, 3, "Street", "Nome inválido"));
+        }
+
     }
 }
