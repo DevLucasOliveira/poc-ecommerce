@@ -1,10 +1,10 @@
 ﻿using Ecommerce.Domain.StoreContext.Enums;
-using FluentValidator;
+using Ecommerce.Shared.Entities;
 using System;
 
 namespace Ecommerce.Domain.StoreContext.Entities
 {
-    public class Delivery : Notifiable
+    public class Delivery : Entity
     {
         public Delivery(DateTime estimatedDeliveryDate)
         {

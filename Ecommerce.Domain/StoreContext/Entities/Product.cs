@@ -1,8 +1,8 @@
-﻿using FluentValidator;
+﻿using Ecommerce.Shared.Entities;
 
 namespace Ecommerce.Domain.StoreContext.Entities
 {
-    public class Product : Notifiable
+    public class Product : Entity
     {
         public Product(
             string title, 
