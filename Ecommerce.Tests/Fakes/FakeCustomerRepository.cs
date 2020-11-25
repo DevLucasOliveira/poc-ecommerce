@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Domain.StoreContext.Entities;
+using Ecommerce.Domain.StoreContext.Queries;
 using Ecommerce.Domain.StoreContext.Repositories;
 
 namespace Ecommerce.Tests.Fakes
@@ -13,6 +14,11 @@ namespace Ecommerce.Tests.Fakes
         public bool CheckEmail(string email)
         {
             return false;
+        }
+
+        public CustomerOrdersCountResult GetCustomerOrdersCount(string document)
+        {
+            return null;
         }
 
         public void Save(Customer customer)
