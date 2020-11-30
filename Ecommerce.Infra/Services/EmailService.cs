@@ -7,7 +7,7 @@ namespace Ecommerce.Infra.Services
     {
         public void Send(string to, string from, string subject, string body)
         {
-            throw new NotImplementedException();
+            // TODO - Implementar
         }
     }
 }

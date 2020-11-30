@@ -4,7 +4,7 @@ AS
 	SELECT CASE WHEN EXISTS(
 		SELECT Id
 		FROM Customer
-		Where Document = @Document
+		WHERE Document = @Document
 		)
 		THEN CAST(1 AS BIT)
 		ELSE CAST(0 AS BIT) 

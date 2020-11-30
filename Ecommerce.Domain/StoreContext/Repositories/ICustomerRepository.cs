@@ -1,5 +1,7 @@
 ﻿using Ecommerce.Domain.StoreContext.Entities;
 using Ecommerce.Domain.StoreContext.Queries;
+using System;
+using System.Collections.Generic;
 
 namespace Ecommerce.Domain.StoreContext.Repositories
 {
@@ -10,6 +12,9 @@ namespace Ecommerce.Domain.StoreContext.Repositories
         bool CheckEmail(string email);
         void Save(Customer customer);
         CustomerOrdersCountResult GetCustomerOrdersCount(string document);
+        IEnumerable<ListCustomerQueryResult> Get();
+        GetCustomerQueryResult Get(Guid id);
+        IEnumerable<ListCustomerOrdersQueryResult> GetOrders(Guid id);
 
     }
 }

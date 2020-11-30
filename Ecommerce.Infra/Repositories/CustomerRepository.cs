@@ -3,6 +3,8 @@ using Ecommerce.Domain.StoreContext.Entities;
 using Ecommerce.Domain.StoreContext.Queries;
 using Ecommerce.Domain.StoreContext.Repositories;
 using Ecommerce.Infra.Context;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
@@ -27,9 +29,24 @@ namespace Ecommerce.Infra.Repositories
             return _context.Connection.Query<bool>("spCheckEmail", new { Email = email }, commandType: CommandType.StoredProcedure).FirstOrDefault();
         }
 
+        public IEnumerable<ListCustomerQueryResult> Get()
+        {
+            return _context.Connection.Query<ListCustomerQueryResult>("spListCustomerQueryResult", commandType: CommandType.StoredProcedure);
+        }
+
+        public GetCustomerQueryResult Get(Guid id)
+        {
+            return _context.Connection.Query<GetCustomerQueryResult>("spGetCustomerById", new { Id = id }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+        }
+
         public CustomerOrdersCountResult GetCustomerOrdersCount(string document)
         {
             return _context.Connection.Query<CustomerOrdersCountResult>("spGetCustomerOrdersCount", new { Document = document }, commandType: CommandType.StoredProcedure).FirstOrDefault();
+        }
+
+        public IEnumerable<ListCustomerOrdersQueryResult> GetOrders(Guid id)
+        {
+            return _context.Connection.Query<ListCustomerOrdersQueryResult>("spListCustomerOrdersQueryResult", new { Id = id }, commandType: CommandType.StoredProcedure);
         }
 
         public void Save(Customer customer)
@@ -44,7 +61,7 @@ namespace Ecommerce.Infra.Repositories
                     Document = customer.Document.Number,
                     Emaiil = customer.Email.Address,
                     Phone = customer.Phone
-                }, commandType: CommandType.StoredProcedure);
+                }, commandType: CommandType.StoredProcedure);  
 
             CreateAddress(customer);
         }
@@ -72,6 +89,9 @@ namespace Ecommerce.Infra.Repositories
             }
         }
 
-
+        List<ListCustomerQueryResult> ICustomerRepository.Get()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

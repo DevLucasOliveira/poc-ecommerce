@@ -16,7 +16,7 @@ namespace Ecommerce.Domain.StoreContext.Commands.CustomerCommands.Inputs
         public string City { get; set; }
         public string State { get; set; }
         public string Country { get; set; }
-        public string ZipCode { get; set; }
+        public string ZipCode { get; set; }  
         public EAddressType Type { get; set; }
 
         public void Valid()
