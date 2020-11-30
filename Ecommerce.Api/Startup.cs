@@ -6,9 +6,9 @@ using Ecommerce.Infra.Repositories;
 using Ecommerce.Infra.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace Ecommerce.Api
 {
@@ -18,11 +18,22 @@ namespace Ecommerce.Api
         {
             services.AddMvc();
 
+            services.AddResponseCompression();
+
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddScoped<CustomerHandler, CustomerHandler>();
             services.AddScoped<DataContext, DataContext>();
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<CustomerHandler>();
+
+            services.AddSwaggerGen(x =>
+            {
+                x.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Devlucasoliveira",
+                    Version = "v1"
+                });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -30,7 +41,13 @@ namespace Ecommerce.Api
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
-            app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUI(x =>
+            {
+                x.SwaggerEndpoint("/swagger/v1/swagger.json", "Devlucasoliveira");
+            });
+
+            app.UseResponseCompression();
         }
     }
 }

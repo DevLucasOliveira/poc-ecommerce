@@ -27,7 +27,7 @@ namespace Ecommerce.Domain.StoreContext.Handlers
         {
             command.Valid();
             if (command.Invalid)
-                return null;
+                return new CommandResult(false, "Ocorreu um erro", command.Notifications);
 
             if (_customerRepository.CheckDocument(command.Document))
                 AddNotification("Document", "Este CPF já está em uso");
@@ -46,12 +46,17 @@ namespace Ecommerce.Domain.StoreContext.Handlers
             AddNotifications(customer.Notifications);
 
             if (Invalid)
-                return null;
+                return new CommandResult(false, "Ocorreu um erro", command.Notifications);
 
             _customerRepository.Save(customer);
             _emailService.Send(email.Address, "lucasoliveira.si@outlook.com", "Seja bem vindo ao Balta Store", "Olá");
 
-            return new CreateCustomerCommandResult(Guid.NewGuid(), name.ToString(), email.Address);
+            return new CommandResult(true, "Bem vindo ao DevLucasOliveira", new
+            {
+                Id = customer.Id,
+                Name = name.ToString(),
+                Email = email.Address
+            });
         }
 
         public ICommandResult Handler(AddAddressCommand command)

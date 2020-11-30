@@ -89,9 +89,5 @@ namespace Ecommerce.Infra.Repositories
             }
         }
 
-        List<ListCustomerQueryResult> ICustomerRepository.Get()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
