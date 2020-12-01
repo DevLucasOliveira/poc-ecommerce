@@ -6,6 +6,7 @@ using Ecommerce.Infra.Repositories;
 using Ecommerce.Infra.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
@@ -14,10 +15,12 @@ namespace Ecommerce.Api
 {
     public class Startup
     {
+        public static IConfiguration Configuration { get; set; }
+
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
 
+            services.AddMvc();
             services.AddResponseCompression();
 
             services.AddTransient<ICustomerRepository, CustomerRepository>();
